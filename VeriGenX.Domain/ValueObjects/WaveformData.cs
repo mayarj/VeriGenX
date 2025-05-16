@@ -6,7 +6,7 @@ using VeriGenX.Domain.Shared;
 namespace VeriGenX.Domain.ValueObjects
 {
 
-    public class WaveformData  
+    public class WaveformData  : ValueObject
     {
 
         public TimeUnit TimeUnit { get; private set; }
@@ -58,6 +58,18 @@ namespace VeriGenX.Domain.ValueObjects
                 return Result.Failure(signalResult.Error);
 
             return signalResult.Value.AddValue(time, value);
+        }
+
+        public override IEnumerable<object> GetAtomicValues()
+        {
+            yield return TimeUnit;
+            yield return TimeScale;
+
+            foreach (var signal in _signals)
+            {
+                yield return signal.Key; // Signal ID
+                yield return signal.Value; // Signal object
+            }
         }
     }
    

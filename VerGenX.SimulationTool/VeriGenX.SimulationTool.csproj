@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Docker.DotNet" Version="3.125.15" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VeriGenX.Domain\VeriGenX.Domain.csproj" />
+
+  </ItemGroup>
+
+</Project>

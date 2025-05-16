@@ -5,10 +5,11 @@ using VeriGenX.Domain.ValueObjects;
 
 namespace VeriGenX.Domain.Entites
 {
-    public record SnippetId(Guid userId);
+    public record SnippetId(Guid snippetId);
     public class CodeSnippet
     {
         public SnippetId SnippetId { get;private  set; }
+        public ProjectId ProjectId { get; private set; }
         public string Title { get;private  set; }
         public string Description { get;private  set; }
         public string VerilogCode { get;private  set; }
@@ -18,7 +19,7 @@ namespace VeriGenX.Domain.Entites
         public TestResult? TestResult { get; private set; }
         public WaveformData? Waveform { get; private  set; }
 
-        private CodeSnippet(SnippetId Id, string title, string description, string code, string testBench)
+        private CodeSnippet(SnippetId Id, ProjectId projectId,  string title, string description, string code, string testBench)
         {
             SnippetId =Id ;
             VerilogCode = code;
@@ -26,9 +27,11 @@ namespace VeriGenX.Domain.Entites
             Description = description;
             Title = title;
             CreatedDate = DateTime.UtcNow ;
+            ProjectId = projectId ;
         }
         public static Result<CodeSnippet> Create(
             SnippetId id,
+            ProjectId projectId,
             string title,
             string description,
             string verilogCode,
@@ -45,6 +48,7 @@ namespace VeriGenX.Domain.Entites
 
             return Result.Success(new CodeSnippet(
                 id,
+                projectId,
                 title.Trim(),
                 description?.Trim() ?? string.Empty,
                 verilogCode,
